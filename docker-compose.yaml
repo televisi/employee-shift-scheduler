@@ -3,7 +3,6 @@ services:
   psqldb:
     image: postgres:14.4
     restart: unless-stopped
-    # env_file: ./.env
     environment:
       - POSTGRES_PASSWORD=$PSQL_ROOT_PASSWORD
       - POSTGRES_USER=$PSQL_USER
@@ -12,7 +11,6 @@ services:
       - $PSQL_LOCAL_PORT:$PSQL_DOCKER_PORT
     volumes:
       - db:/var/lib/postgres
-    network_mode: bridge
   
   webapp:
     depends_on:
@@ -26,7 +24,6 @@ services:
         - DB_NAME=$PSQL_DATABASE
         - DB_PORT=$PSQL_DOCKER_PORT
     restart: unless-stopped
-    network_mode: bridge
     
   nginx:
     image: nginx:latest
@@ -36,6 +33,3 @@ services:
       - $LOCAL_PORT:80 
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-    network_mode: bridge
-volumes: 
-  db:
