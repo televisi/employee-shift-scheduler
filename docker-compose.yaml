@@ -49,5 +49,8 @@ volumes:
 networks:
   backend:
     driver: qnet # Adding QNAP Network Driver
+    name: qnet-dhcp-eth0-6d6da6
+    external: true
+
 #    name: qnet-dhcp-eth0-6d6da6
 #    external: true
