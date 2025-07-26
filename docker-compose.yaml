@@ -12,8 +12,7 @@ services:
       - $PSQL_LOCAL_PORT:$PSQL_DOCKER_PORT
     volumes:
       - db:/var/lib/postgres
-    networks: 
-      - QNAP-DHCP-Network
+    network_mode: bridge
   
   webapp:
     depends_on:
@@ -27,9 +26,8 @@ services:
         - DB_NAME=$PSQL_DATABASE
         - DB_PORT=$PSQL_DOCKER_PORT
     restart: unless-stopped
-    networks: 
-      - QNAP-DHCP-Network
-
+    network_mode: bridge
+    
   nginx:
     image: nginx:latest
     depends_on:
@@ -38,13 +36,6 @@ services:
       - $LOCAL_PORT:80 
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-    networks: 
-      - QNAP-DHCP-Network
+    network_mode: bridge
 volumes: 
   db:
-networks:
-    QNAP-DHCP-Network:
-        # Use existing QNAP network name
-        # To find out, use "docker network ls" command
-        name: qnet-dhcp-eth0-6d6da6
-        external: true
