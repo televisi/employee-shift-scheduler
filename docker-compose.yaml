@@ -44,3 +44,4 @@ volumes:
   db:
 networks:
   backend:
+    driver: qnet # Adding QNAP Network Driver
