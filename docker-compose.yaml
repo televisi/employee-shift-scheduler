@@ -12,12 +12,8 @@ services:
       - $PSQL_LOCAL_PORT:$PSQL_DOCKER_PORT
     volumes:
       - db:/var/lib/postgres
-<<<<<<< HEAD
-    network_mode: bridge
-=======
     networks:
       - backend
->>>>>>> parent of 737abb0 (Update docker-compose.yaml)
   
   webapp:
     depends_on:
@@ -31,14 +27,9 @@ services:
         - DB_NAME=$PSQL_DATABASE
         - DB_PORT=$PSQL_DOCKER_PORT
     restart: unless-stopped
-<<<<<<< HEAD
-    network_mode: bridge
-    
-=======
     networks:
       - backend
 
->>>>>>> parent of 737abb0 (Update docker-compose.yaml)
   nginx:
     image: nginx:latest
     depends_on:
@@ -47,15 +38,12 @@ services:
       - $LOCAL_PORT:80 
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-<<<<<<< HEAD
-    network_mode: bridge
-volumes: 
-  db:
-=======
     networks:
       - backend
+
 volumes: 
   db:
 networks:
   backend:
->>>>>>> parent of 737abb0 (Update docker-compose.yaml)
+    name: qnet-dhcp-eth0-6d6da6
+    external: true
